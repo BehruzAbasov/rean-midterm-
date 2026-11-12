@@ -37,7 +37,7 @@ h2,h3{margin:0 0 10px}.muted{color:var(--muted)}.mini{font-size:12px}.controls,.
 .cloud{font-size:12px;color:var(--muted);margin-top:12px}
 .hidden{display:none!important}
 @media(max-width:800px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.panel{padding:15px}.sidebar{order:2}.actions .spacer{display:none}.actions .btn{flex-grow:1}.number-grid{grid-template-columns:repeat(9,1fr)}}
-</style></head>
+.jump-input{width:95px;max-width:100%;border:1px solid var(--line);border-radius:9px;padding:10px}.jump-line{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:-6px 0 16px}.jump-line span{font-size:12px;color:var(--muted)}@media(max-width:480px){.jump-input{width:85px}}</style></head>
 <body>
 <header><div class="headerline"><div><p>Reanimatologiya A.İ.T • Midterm All-In-One</p><h1>📚 Düzgün cavabları öyrən</h1><p>Fleşkart • Cavabı aç • Bildim / Təkrar et</p></div><a href="/">← İmtahana qayıt</a></div></header>
 <main>
@@ -51,6 +51,7 @@ h2,h3{margin:0 0 10px}.muted{color:var(--muted)}.mini{font-size:12px}.controls,.
 <section class="panel">
 <div class="controls"><input id="search" type="search" placeholder="Sual nömrəsi və ya mətn üzrə axtar..." aria-label="Sual axtar">
 <select id="filter" aria-label="Sual kateqoriyası"><option value="all">Bütün suallar</option><option value="new">İşlənməmiş</option><option value="review">Təkrar etməliyəm</option><option value="known">Bildiklərim</option></select></div>
+<div class="jump-line"><label for="jumpNumber">Suala keç:</label><input id="jumpNumber" class="jump-input" type="number" min="1" max="493" step="1" inputmode="numeric" placeholder="Məs. 230"><button id="jumpButton" class="btn primary" type="button">Keç</button><span>Keçiddən sonra növbəti suallara ardıcıllıqla davam edilir.</span></div>
 <div class="switchrow"><label><input id="shuffle" type="checkbox"> Sualları qarışdır</label><label><input id="onlyAnswer" type="checkbox"> Cavabı açanda yalnız düzgün variantı göstər</label></div>
 <div class="progress" aria-label="Öyrənmə irəliləyişi"><div id="bar"></div></div>
 <div id="empty" class="hidden notice">Bu filtrdə sual tapılmadı. Başqa kateqoriya seçə bilərsən.</div>
@@ -86,7 +87,12 @@ const counted=()=>{let known=0,review=0;for(const q of questions){const v=curren
 function hash(n){let x=(n^state.orderSeed)>>>0;x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return(x^(x>>>16))>>>0;}
 function filtered(){let arr=questions.filter(q=>(state.filter==='all'||current(q)===state.filter)&&(!state.search||String(q.number).includes(state.search)||q.question.toLocaleLowerCase('az').includes(state.search.toLocaleLowerCase('az'))||q.options.some(o=>o.text.toLocaleLowerCase('az').includes(state.search.toLocaleLowerCase('az')))));return state.shuffle?arr.sort((a,b)=>hash(a.number)-hash(b.number)):arr;}
 function persist(){state.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}if(cloudClient&&cloudUser&&cloudReady){clearTimeout(syncTimer);syncTimer=setTimeout(pushCloud,850);}}
-function selectQuestion(id){state.questionId=id;state.revealed=false;persist();render();}
+function selectQuestion(id,{sequential=false}={}){if(sequential){state.filter='all';state.search='';state.shuffle=false;}state.questionId=id;state.revealed=false;persist();render();}
+function jumpToNumber(){const raw=$('jumpNumber').value.trim();const n=Number(raw);
+ if(!raw||!Number.isInteger(n)||n<1||n>493){alert('1-dən 493-ə qədər sual nömrəsi yaz.');return;}
+ if(!questions.some(q=>q.number===n)){alert('Bu sualın mənbədə düzgün cavabı qeyd edilmədiyindən öyrənmə siyahısında yoxdur.');return;}
+ selectQuestion(n,{sequential:true});$('jumpNumber').value='';$('jumpNumber').blur();
+}
 function render(){
 const counts=counted(),list=filtered();
 $('known').textContent=counts.known;$('reviewCount').textContent=counts.review;$('remaining').textContent=counts.new;$('total').textContent=questions.length;
@@ -95,7 +101,7 @@ $('filter').value=state.filter;$('shuffle').checked=state.shuffle;$('onlyAnswer'
 if(document.activeElement!==$('search'))$('search').value=state.search;
 $('empty').classList.toggle('hidden',list.length>0);$('card').classList.toggle('hidden',!list.length);
 const nav=$('numbers');nav.replaceChildren();
-for(const q of list){const b=document.createElement('button');b.type='button';b.className='num '+(current(q)==='known'?'known':current(q)==='review'?'review':'')+(q.number===state.questionId?' current':'');b.textContent=q.number;b.title='Sual '+q.number;b.onclick=()=>selectQuestion(q.number);nav.append(b);}
+for(const q of list){const b=document.createElement('button');b.type='button';b.className='num '+(current(q)==='known'?'known':current(q)==='review'?'review':'')+(q.number===state.questionId?' current':'');b.textContent=q.number;b.title='Sual '+q.number;b.onclick=()=>selectQuestion(q.number,{sequential:true});nav.append(b);}
 if(!list.length)return;
 let idx=list.findIndex(q=>q.number===state.questionId);if(idx<0){idx=0;state.questionId=list[0].number;state.revealed=false;}
 const q=list[idx],mark=current(q);
@@ -120,6 +126,8 @@ function mark(type){state.marks[state.questionId]=type;const before=filtered(),i
 state.revealed=false;const after=filtered();if(!after.some(q=>q.number===state.questionId)&&after.length)state.questionId=after[Math.min(i,after.length-1)].number;
 else if(after.length&&i<after.length-1)state.questionId=after[i+1].number;
 persist();render();}
+$('jumpButton').addEventListener('click',jumpToNumber);
+$('jumpNumber').addEventListener('keydown',e=>{if(e.key==='Enter')jumpToNumber();});
 $('search').addEventListener('input',e=>{state.search=e.target.value;state.revealed=false;persist();render();});
 $('filter').addEventListener('change',e=>{state.filter=e.target.value;state.revealed=false;persist();render();});
 $('shuffle').addEventListener('change',e=>{state.shuffle=e.target.checked;state.revealed=false;persist();render();});
