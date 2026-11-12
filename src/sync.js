@@ -50,7 +50,7 @@ async function init(){
 function credentials(){
  const addr=email.value.trim();
  const pass=password.value;
- if(!/^\\S+@\\S+\\.\\S+$/.test(addr)){message('E-poçt ünvanını düzgün yazın');return null;}
+ if(!/^\S+@\S+\.\S+$/.test(addr)){message('E-poçt ünvanını düzgün yazın');return null;}
  if(pass.length<6){message('Şifrə ən az 6 simvol olmalıdır');return null;}
  return {email:addr,password:pass};
 }
