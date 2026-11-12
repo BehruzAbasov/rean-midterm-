@@ -2,12 +2,14 @@
 const status = document.getElementById('cloudStatus');
 const email = document.getElementById('cloudEmail');
 const login = document.getElementById('cloudLogin');
+const signup = document.getElementById('cloudSignup');
+const password = document.getElementById('cloudPassword');
 const logout = document.getElementById('cloudLogout');
 const bridge = window.examBridge;
 const examId = 'reanimatologiya-ait-midterm-493-v1';
 let client=null,user=null,loading=true,pending=false,timer;
 const message=t=>{status.textContent=t;};
-function updateButtons(){login.classList.toggle('hide',!!user);email.classList.toggle('hide',!!user);logout.classList.toggle('hide',!user);}
+function updateButtons(){login.classList.toggle('hide',!!user);signup.classList.toggle('hide',!!user);email.classList.toggle('hide',!!user);password.classList.toggle('hide',!!user);logout.classList.toggle('hide',!user);}
 async function flush(){
  if(!client||!user||loading){pending=true;return;}
  pending=false;
@@ -21,7 +23,7 @@ window.addEventListener('exam-state-change',()=>{
 });
 async function loadProgress(){
  loading=true;
- if(!user){loading=false;updateButtons();message('Lokal yaddaş aktivdir • E-poçtla daxil olun');return;}
+ if(!user){loading=false;updateButtons();message('Lokal yaddaş aktivdir • E-poçt və şifrə ilə daxil olun');return;}
  message('Buluddan nəticələr oxunur...');
  const {data,error}=await client.from('exam_progress').select('payload').eq('user_id',user.id).eq('exam_id',examId).maybeSingle();
  if(error){loading=false;message('Oxuma xətası: '+error.message);return;}
@@ -45,14 +47,30 @@ async function init(){
   });
  }catch(error){message('Bulud kitabxanası yüklənmədi • Lokal yaddaş aktivdir');console.error(error);}
 }
-login.addEventListener('click',async()=>{
- if(!client)return;
+function credentials(){
  const addr=email.value.trim();
- if(!/^\S+@\S+\.\S+$/.test(addr)){message('E-poçt ünvanını düzgün yazın');return;}
- login.disabled=true;
- const {error}=await client.auth.signInWithOtp({email:addr,options:{emailRedirectTo:location.origin+location.pathname}});
- login.disabled=false;message(error?'Xəta: '+error.message:'Giriş keçidi e-poçtunuza göndərildi');
-});
+ const pass=password.value;
+ if(!/^\\S+@\\S+\\.\\S+$/.test(addr)){message('E-poçt ünvanını düzgün yazın');return null;}
+ if(pass.length<6){message('Şifrə ən az 6 simvol olmalıdır');return null;}
+ return {email:addr,password:pass};
+}
+async function passwordAction(isSignup){
+ if(!client)return;
+ const c=credentials();if(!c)return;
+ login.disabled=true;signup.disabled=true;
+ message(isSignup?'Qeydiyyat edilir...':'Daxil olunur...');
+ try{
+  const {data,error}=isSignup?await client.auth.signUp(c):await client.auth.signInWithPassword(c);
+  if(error){message('Xəta: '+error.message);return;}
+  if(data?.session){user=data.user;updateButtons();await loadProgress();message('Giriş uğurludur • Bulud yaddaşı aktivdir');}
+  else if(isSignup)message('Hesab yaradıldı, lakin e-poçt təsdiqi aktivdir. Supabase → Authentication → Providers → Email bölməsində Confirm email ayarını söndürün.');
+  else message('Giriş üçün hesabın təsdiqlənməsi tələb olunur.');
+ }catch(e){message('Bağlantı xətası: '+e.message);}
+ finally{login.disabled=false;signup.disabled=false;}
+}
+login.addEventListener('click',()=>passwordAction(false));
+signup.addEventListener('click',()=>passwordAction(true));
+password.addEventListener('keydown',e=>{if(e.key==='Enter')passwordAction(false);});
 logout.addEventListener('click',async()=>{
  if(!client)return;
  clearTimeout(timer);if(pending)await flush();
