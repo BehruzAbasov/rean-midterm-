@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="az"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Öyrən • Reanimatologiya A.İ.T</title>
+<style>
+:root{color-scheme:light;--bg:#f3f6fd;--panel:#fff;--ink:#16243b;--muted:#63748d;--line:#dce4f0;--blue:#305db7;--green:#128348;--red:#c23838;--amber:#b86b14}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--blue);text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}
+header{background:linear-gradient(115deg,#172d55,#315d9a);color:white;padding:23px max(18px,calc((100vw - 1120px)/2))}
+.headerline{max-width:1120px;margin:auto;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+header h1{font-size:clamp(22px,4vw,29px);margin:5px 0}header p{margin:0;color:#d9e7ff}header a{color:#fff;border:1px solid #8299bc;padding:8px 12px;border-radius:8px}
+main{max-width:1120px;margin:22px auto;padding:0 14px 36px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 20px #122b4b09;padding:20px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.stat strong{display:block;font-size:26px}.stat span{color:var(--muted);font-size:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px}
+h2,h3{margin:0 0 10px}.muted{color:var(--muted)}.mini{font-size:12px}.controls,.actions,.switchrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.controls{margin-bottom:18px}.controls input{flex:1;min-width:150px}.controls input,.controls select{border:1px solid var(--line);border-radius:9px;background:#fff;padding:10px}
+.switchrow{margin:12px 0}.switchrow label{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.btn{border:1px solid #c7d5e8;background:#fff;color:#25466f;padding:10px 13px;border-radius:9px;font-weight:650}
+.btn.primary{background:var(--blue);color:white;border-color:var(--blue)}.btn.good{background:var(--green);color:white;border-color:var(--green)}.btn.warn{background:#fff4e7;color:#94540e;border-color:#edc993}.btn.ghost{background:#f6f8fc}
+.question-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.counter{color:var(--blue);font-weight:750}
+.pill{font-size:12px;border-radius:30px;padding:5px 10px;background:#eaf1ff;color:#2d599a}
+.question{font-size:clamp(19px,2.5vw,23px);font-weight:700;line-height:1.5;margin:14px 0 18px}
+.options{display:grid;gap:10px}.option{display:flex;align-items:flex-start;gap:12px;padding:13px;border:1px solid var(--line);border-radius:10px;background:#f9fbff;transition:background .1s}
+.option .letter{font-size:12px;font-weight:800;border-radius:6px;min-width:27px;min-height:27px;background:#e8eef8;color:#455e82;display:grid;place-items:center}
+.option.correct{background:#e9f8ef;border-color:#43ac70;color:#075c32}.option.correct .letter{background:#168348;color:white}
+.option.faded{opacity:.54}.answer{margin:15px 0;padding:14px;border-radius:10px;background:#e9f8ef;border:1px solid #9bd8b5;color:#125b34}
+.actions{margin-top:16px}.actions .spacer{flex:1}
+.sidebar h3{font-size:17px}.number-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;max-height:440px;overflow:auto;padding:3px 1px}
+.num{border:1px solid var(--line);background:#f4f7fc;border-radius:7px;min-height:34px;font-size:12px}
+.num.known{background:#dff5e8;border-color:#a2d7b8;color:#137243}.num.review{background:#ffe7e7;border-color:#e9afaf;color:#a62d2d}
+.num.current{outline:2px solid #315db6;outline-offset:1px;font-weight:800}
+.legend{display:flex;gap:11px;flex-wrap:wrap;font-size:12px;margin:12px 0;color:var(--muted)}.dot{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:3px}
+.progress{height:9px;background:#e6edf7;border-radius:9px;overflow:hidden}.progress>div{height:100%;background:var(--green)}
+.notice{border-radius:10px;background:#fff8e7;border:1px solid #f0dfae;padding:12px;margin-top:18px;font-size:13px}
+.cloud{font-size:12px;color:var(--muted);margin-top:12px}
+.hidden{display:none!important}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.panel{padding:15px}.sidebar{order:2}.actions .spacer{display:none}.actions .btn{flex-grow:1}.number-grid{grid-template-columns:repeat(9,1fr)}}
+</style></head>
+<body>
+<header><div class="headerline"><div><p>Reanimatologiya A.İ.T • Midterm All-In-One</p><h1>📚 Düzgün cavabları öyrən</h1><p>Fleşkart • Cavabı aç • Bildim / Təkrar et</p></div><a href="/">← İmtahana qayıt</a></div></header>
+<main>
+<div class="stats">
+<div class="stat"><strong id="total">491</strong><span>Öyrəniləcək sual</span></div>
+<div class="stat"><strong id="known">0</strong><span>Bildiyim suallar</span></div>
+<div class="stat"><strong id="reviewCount">0</strong><span>Təkrar etməliyəm</span></div>
+<div class="stat"><strong id="remaining">491</strong><span>Hələ işləmədiyim</span></div>
+</div>
+<div class="layout">
+<section class="panel">
+<div class="controls"><input id="search" type="search" placeholder="Sual nömrəsi və ya mətn üzrə axtar..." aria-label="Sual axtar">
+<select id="filter" aria-label="Sual kateqoriyası"><option value="all">Bütün suallar</option><option value="new">İşlənməmiş</option><option value="review">Təkrar etməliyəm</option><option value="known">Bildiklərim</option></select></div>
+<div class="switchrow"><label><input id="shuffle" type="checkbox"> Sualları qarışdır</label><label><input id="onlyAnswer" type="checkbox"> Cavabı açanda yalnız düzgün variantı göstər</label></div>
+<div class="progress" aria-label="Öyrənmə irəliləyişi"><div id="bar"></div></div>
+<div id="empty" class="hidden notice">Bu filtrdə sual tapılmadı. Başqa kateqoriya seçə bilərsən.</div>
+<div id="card">
+<div class="question-top"><span id="count" class="counter"></span><span id="statePill" class="pill"></span></div>
+<div id="question" class="question"></div>
+<div id="options" class="options"></div>
+<div id="answer" class="answer hidden" aria-live="polite"></div>
+<div class="actions"><button id="reveal" class="btn primary">Düzgün cavabı göstər</button><button id="hide" class="btn hidden">Cavabı gizlət</button><button id="learned" class="btn good hidden">✓ Bildim</button><button id="repeat" class="btn warn hidden">↻ Təkrar et</button></div>
+<div class="actions"><button id="prev" class="btn ghost">← Əvvəlki</button><button id="next" class="btn ghost">Növbəti →</button><span class="spacer"></span><button id="random" class="btn ghost">Təsadüfi sual</button></div>
+</div>
+</section>
+<aside class="panel sidebar">
+<h3>Suallara keçid</h3>
+<p class="muted mini">Rənglər əzbərləmə vəziyyətini göstərir.</p>
+<div class="legend"><span><i class="dot" style="background:#7bd1a0"></i>Bildim</span><span><i class="dot" style="background:#f3a1a1"></i>Təkrar et</span><span><i class="dot" style="background:#e6edf7"></i>İşlənməyib</span></div>
+<div id="numbers" class="number-grid" aria-label="Sual nömrələri"></div>
+<div class="actions"><button id="reviewOnly" class="btn">↻ Təkrar siyahısına keç</button><button id="reset" class="btn">Yaddaşı sıfırla</button></div>
+<div id="cloud" class="cloud">Lokal yaddaş aktivdir</div>
+<div class="notice">Mənbədə 440 və 467-ci sualların düzgün cavab işarəsi olmadığı üçün burada 491 sual var. Düzgün cavablar mənbə PDF-in cavab açarına əsaslanır.</div>
+</aside></div>
+</main>
+<script src="./data.js"></script><script src="../config.js"></script>
+<script type="module">
+const questions=window.STUDY_QUESTIONS||[];
+const KEY='rean-midterm-study-v1',examId='reanimatologiya-ait-study-v1';
+const $=id=>document.getElementById(id);
+const defaults={marks:{},questionId:questions[0]?.number||1,shuffle:false,onlyAnswer:false,filter:'all',search:'',revealed:false,orderSeed:2026,updatedAt:0};
+let state={...defaults},cloudClient=null,cloudUser=null,cloudReady=false,syncTimer;
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&typeof saved==='object')state={...state,...saved,marks:saved.marks||{}};}catch(e){}
+const current=q=>state.marks[q.number]||'new';
+const counted=()=>{let known=0,review=0;for(const q of questions){const v=current(q);if(v==='known')known++;if(v==='review')review++;}return {known,review,new:questions.length-known-review};};
+function hash(n){let x=(n^state.orderSeed)>>>0;x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return(x^(x>>>16))>>>0;}
+function filtered(){let arr=questions.filter(q=>(state.filter==='all'||current(q)===state.filter)&&(!state.search||String(q.number).includes(state.search)||q.question.toLocaleLowerCase('az').includes(state.search.toLocaleLowerCase('az'))||q.options.some(o=>o.text.toLocaleLowerCase('az').includes(state.search.toLocaleLowerCase('az')))));return state.shuffle?arr.sort((a,b)=>hash(a.number)-hash(b.number)):arr;}
+function persist(){state.updatedAt=Date.now();try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}if(cloudClient&&cloudUser&&cloudReady){clearTimeout(syncTimer);syncTimer=setTimeout(pushCloud,850);}}
+function selectQuestion(id){state.questionId=id;state.revealed=false;persist();render();}
+function render(){
+const counts=counted(),list=filtered();
+$('known').textContent=counts.known;$('reviewCount').textContent=counts.review;$('remaining').textContent=counts.new;$('total').textContent=questions.length;
+$('bar').style.width=(questions.length?counts.known/questions.length*100:0)+'%';
+$('filter').value=state.filter;$('shuffle').checked=state.shuffle;$('onlyAnswer').checked=state.onlyAnswer;
+if(document.activeElement!==$('search'))$('search').value=state.search;
+$('empty').classList.toggle('hidden',list.length>0);$('card').classList.toggle('hidden',!list.length);
+const nav=$('numbers');nav.replaceChildren();
+for(const q of list){const b=document.createElement('button');b.type='button';b.className='num '+(current(q)==='known'?'known':current(q)==='review'?'review':'')+(q.number===state.questionId?' current':'');b.textContent=q.number;b.title='Sual '+q.number;b.onclick=()=>selectQuestion(q.number);nav.append(b);}
+if(!list.length)return;
+let idx=list.findIndex(q=>q.number===state.questionId);if(idx<0){idx=0;state.questionId=list[0].number;state.revealed=false;}
+const q=list[idx],mark=current(q);
+$('count').textContent='Sual '+q.number+' • '+(idx+1)+' / '+list.length;
+$('statePill').textContent=mark==='known'?'✓ Bildim':mark==='review'?'↻ Təkrar etməliyəm':'Yeni sual';
+$('question').textContent=q.question;
+const options=$('options');options.replaceChildren();
+for(const opt of q.options){
+if(state.revealed&&state.onlyAnswer&&opt.id!==q.answer)continue;
+const div=document.createElement('div');div.className='option'+(state.revealed?(opt.id===q.answer?' correct':' faded'):'');
+const l=document.createElement('span');l.className='letter';l.textContent=opt.id;
+const t=document.createElement('span');t.textContent=opt.text;div.append(l,t);options.append(div);
+}
+const answer=q.options.find(o=>o.id===q.answer);
+$('answer').textContent='Düzgün cavab: '+q.answer+') '+(answer?.text||'');$('answer').classList.toggle('hidden',!state.revealed);
+for(const id of ['hide','learned','repeat'])$(id).classList.toggle('hidden',!state.revealed);
+$('reveal').classList.toggle('hidden',state.revealed);
+$('prev').disabled=idx===0;$('next').disabled=idx===list.length-1;
+}
+function move(delta){const list=filtered();const i=list.findIndex(q=>q.number===state.questionId);if(i<0)return;const q=list[i+delta];if(q)selectQuestion(q.number);}
+function mark(type){state.marks[state.questionId]=type;const before=filtered(),i=before.findIndex(q=>q.number===state.questionId);
+state.revealed=false;const after=filtered();if(!after.some(q=>q.number===state.questionId)&&after.length)state.questionId=after[Math.min(i,after.length-1)].number;
+else if(after.length&&i<after.length-1)state.questionId=after[i+1].number;
+persist();render();}
+$('search').addEventListener('input',e=>{state.search=e.target.value;state.revealed=false;persist();render();});
+$('filter').addEventListener('change',e=>{state.filter=e.target.value;state.revealed=false;persist();render();});
+$('shuffle').addEventListener('change',e=>{state.shuffle=e.target.checked;state.revealed=false;persist();render();});
+$('onlyAnswer').addEventListener('change',e=>{state.onlyAnswer=e.target.checked;persist();render();});
+$('reveal').onclick=()=>{state.revealed=true;persist();render();};
+$('hide').onclick=()=>{state.revealed=false;persist();render();};
+$('learned').onclick=()=>mark('known');$('repeat').onclick=()=>mark('review');
+$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);
+$('random').onclick=()=>{const arr=filtered();if(arr.length)selectQuestion(arr[Math.floor(Math.random()*arr.length)].number);};
+$('reviewOnly').onclick=()=>{state.filter='review';state.search='';state.revealed=false;persist();render();};
+$('reset').onclick=()=>{if(confirm('Öyrənmə tarixçəsi silinsin? İmtahandakı cavabların dəyişməyəcək.')){state={...defaults,orderSeed:Math.floor(Math.random()*1e9)};persist();render();}};
+render();
+async function pushCloud(){if(!cloudClient||!cloudUser||!cloudReady)return;
+const {error}=await cloudClient.from('exam_progress').upsert({user_id:cloudUser.id,exam_id:examId,payload:state,updated_at:new Date().toISOString()},{onConflict:'user_id,exam_id'});
+$('cloud').textContent=error?'Lokal saxlanıldı • bulud xətası: '+error.message:'✓ Buludda saxlanıldı';
+}
+async function loadCloud(){if(!cloudClient||!cloudUser){$('cloud').textContent='Lokal yaddaş aktivdir • sinxronizasiya üçün əsas səhifədə daxil ol';return;}
+$('cloud').textContent='Buluddan yüklənir...';cloudReady=false;
+const {data,error}=await cloudClient.from('exam_progress').select('payload').eq('user_id',cloudUser.id).eq('exam_id',examId).maybeSingle();
+if(error){$('cloud').textContent='Bulud oxuma xətası • lokal yaddaş aktivdir';cloudReady=true;return;}
+if(data?.payload&&Number(data.payload.updatedAt||0)>Number(state.updatedAt||0)){state={...defaults,...data.payload,marks:data.payload.marks||{}};localStorage.setItem(KEY,JSON.stringify(state));render();}
+cloudReady=true;await pushCloud();
+}
+if(window.SUPABASE_URL&&window.SUPABASE_ANON_KEY){
+try{const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2');
+cloudClient=createClient(window.SUPABASE_URL,window.SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const {data}=await cloudClient.auth.getUser();cloudUser=data?.user||null;await loadCloud();
+cloudClient.auth.onAuthStateChange((_event,session)=>{if((session?.user?.id||null)===(cloudUser?.id||null))return;cloudUser=session?.user||null;setTimeout(loadCloud,0);});
+}catch(e){$('cloud').textContent='Lokal yaddaş aktivdir • bulud bağlantısı mümkün olmadı';console.error(e);}
+}
+</script></body></html>
