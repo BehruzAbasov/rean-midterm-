@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reanimatologiya A.İ.T — MIX imtahan</title>
+
+<style>
+.mix-intro{background:linear-gradient(120deg,#e5f3ff,#f6faff);border:1px solid #c9e1fa;border-radius:16px;padding:18px 20px;margin-bottom:16px}
+.mix-intro h1{margin:0 0 5px;font-size:1.4rem;color:#12395a}.mix-intro p{margin:0;color:#506883;line-height:1.5}
+.mix-stat{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}.mix-stat span{padding:9px 13px;border-radius:10px;background:#e4ecf7;font-weight:600}
+.mix-card .option{width:100%;text-align:left;background:#fff;color:#223b53;font-weight:400;font-size:1rem}
+.mix-card .option:hover:not(:disabled){border-color:#4c96d6;background:#f0f7ff}
+.mix-card .option.selected{border-color:#2278bc;background:#e6f0ff}
+.mix-card .option.good{border-color:#56af70;background:#d7f5df;color:#12582b}
+.mix-card .option.bad{border-color:#db7777;background:#fee2e2;color:#8b2222}
+.mix-card .option:disabled{opacity:1;cursor:default}
+.mix-card .option b{min-width:23px;display:inline-block}
+.mix-card .question-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#64748b}
+.mix-progress{height:8px;background:#dce8f4;border-radius:999px;margin:15px 0 20px;overflow:hidden}
+.mix-progress i{display:block;height:100%;background:#1976b9;transition:width .2s}
+.mix-controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.mix-note{margin:10px 0 0;color:#53687e}
+.mix-results{background:white;border-radius:16px;padding:20px;border:1px solid #e0e5ec;margin-bottom:16px}
+.mix-results h2{margin-top:0}.mix-result-list{display:grid;gap:9px;margin-top:15px}
+.mix-result-item{width:100%;display:block;text-align:left;padding:12px 14px;border-radius:10px;background:#fff6f4;color:#642e2a;border:1px solid #f0c5bf;line-height:1.45}
+.mix-result-item strong{display:block;margin-bottom:3px}
+.mix-result-item em{font-style:normal;color:#446b4a}
+.mix-result-item:hover{background:#ffebe7}
+.mix-result-item.correct-item{background:#effaf1;border-color:#b3dfbe;color:#235831}
+.mix-result-item.unanswered{background:#f5f6fa;border-color:#d4d8e0;color:#48546a}
+.mix-result-toolbar{display:flex;flex-wrap:wrap;gap:8px}
+.mix-hidden{display:none!important}
+.mix-grid button.wrong{background:#fee2e2;color:#8b2222;border-color:#e58383}
+.mix-grid button.correct{background:#d7f5df;color:#12582b;border-color:#5fb879}
+.mix-grid button.answered{background:#e6f0ff;color:#224d7b}
+.mix-grid button.current{outline:3px solid #1671b2}
+@media(max-width:640px){.mix-card .option{padding:12px}.mix-intro{padding:14px}.mix-result-item{padding:12px}}
+</style>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#17253a;background:#f3f6fb}*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer;border:1px solid #dbe4ef;background:#2563eb;color:white;border-radius:10px;padding:10px 14px;font-weight:650}button.secondary{background:white;color:#25466f}button.danger{background:#fff0f2;color:#b3293e;border-color:#f2b6c1}input{border:1px solid #c4d2e2;border-radius:9px;padding:9px}.wrap{max-width:1100px;margin:22px auto;padding:0 15px}.site-header{background:linear-gradient(115deg,#172d55,#315d9a);padding:17px max(18px,calc((100vw - 1100px)/2));color:white}.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:14px;color:white;text-decoration:none}.logo-frame{width:145px;height:67px;background:white;border-radius:13px;padding:10px;display:flex;justify-content:center;align-items:center;flex:none}.brand-logo{width:100%;height:100%;object-fit:contain}.brand-copy{display:grid;gap:4px}.brand-eyebrow{font-size:12px;color:#c7ddff}.brand-name{font-size:19px;font-weight:750}.site-header nav{display:flex;gap:8px;flex-wrap:wrap}.site-header nav a{padding:9px 12px;border-radius:9px;border:1px solid #8299bc;text-decoration:none;color:white;font-weight:650}.site-header nav a.active{background:white;color:#244a83}.toolbar,.card,.number-panel{border:1px solid #dbe4ef;background:white;border-radius:16px;padding:19px;margin:0 0 16px;box-shadow:0 6px 19px #122b4b09}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.toolbar label{display:flex;gap:7px;align-items:center}.toolbar input{width:122px}.number-panel h3{margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(43px,1fr));gap:7px}.grid button{background:#f6f8fc;color:#213b55;padding:8px 0;border:1px solid #dbe4ef}.muted{color:#64748b}@media(max-width:600px){.logo-frame{width:113px;height:53px}.brand-name{font-size:16px}.site-header nav{width:100%}.wrap{margin:14px auto}.card,.toolbar,.number-panel{padding:14px}.grid{grid-template-columns:repeat(auto-fill,minmax(39px,1fr))}}
+</style></head>
+<body>
+<header class="site-header"><div class="header-inner">
+<a class="brand" href="../" aria-label="Dr.Who — ana səhifə"><span class="logo-frame"><img class="brand-logo" src="../src/dr-who-logo.svg" alt="Dr.Who loqosu"></span><span class="brand-copy"><span class="brand-eyebrow">Reanimatologiya A.İ.T</span><span class="brand-name">Midterm · MIX imtahanı</span></span></a>
+<nav><a href="../">İmtahan</a><a href="../oyren/">Öyrən /oyren</a><a class="active" href="./">MIX /mix</a></nav>
+</div></header>
+<main class="wrap">
+<section class="mix-intro"><h1>Qarışıq imtahan</h1><p>493 sual və cavab variantları hər yeni imtahanda yenidən qarışdırılır. Sonda nəticəni, düzgün cavabları və səhvlərini görə, səhvləri ayrıca təkrar edə bilərsən.</p></section>
+<section class="toolbar">
+<label>Sual № <input type="number" id="jump" min="1" placeholder="Məs. 230"></label>
+<button id="go" class="secondary">Keç</button>
+<button id="finish" class="secondary">İmtahanı bitir</button>
+<button id="newExam" class="danger">Yeni MIX</button>
+</section>
+<div id="stats" class="mix-stat" aria-live="polite"></div>
+<section id="card" class="card mix-card"></section>
+<section id="results" class="mix-results mix-hidden"></section>
+<section class="number-panel"><h3>Qarışıq sıra üzrə suallar</h3><div id="numbers" class="grid mix-grid"></div></section>
+</main>
+<script src="./data.js"></script>
+<script>
+(()=>{
+'use strict';
+const DATA=window.MIX_QUESTIONS||[];
+const KEY='rean-midterm-mix-v1';
+const $=id=>document.getElementById(id);
+const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const graded=DATA.filter(q=>!!q.answer);
+const gradedCount=graded.length;
+const randomOrder=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+const numbers=new Map(DATA.map(q=>[q.number,q]));
+let state;
+function fresh(){return {order:randomOrder(DATA.map(q=>q.number)),options:Object.fromEntries(DATA.map(q=>[q.number,randomOrder(q.options.map(o=>o.id))])),answers:{},checked:{},position:0,finished:false,repeat:false,wrongOrder:[],reviewAll:false}}
+function valid(x){return x&&Array.isArray(x.order)&&x.order.length===DATA.length&&new Set(x.order).size===DATA.length&&x.order.every(n=>numbers.has(n))&&x.options&&typeof x.options==='object'&&x.answers&&typeof x.answers==='object'}
+try{state=JSON.parse(localStorage.getItem(KEY))}catch{}
+if(!valid(state))state=fresh();
+state.checked??={};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}}
+const activeOrder=()=>state.repeat?state.wrongOrder:state.order;
+const activeAnswers=()=>state.repeat?(state.repeatAnswers??={}):state.answers;
+const activeChecked=()=>state.repeat?(state.repeatChecked??={}):state.checked;
+const current=()=>numbers.get(activeOrder()[state.position]);
+const score=(order,answers)=>{let correct=0,wrong=0,blank=0;for(const num of order){const q=numbers.get(num);if(!q?.answer)continue;if(!answers[num])blank++;else if(answers[num]===q.answer)correct++;else wrong++}return{correct,wrong,blank}};
+const label=(q,id)=>letters[state.options[q.number].indexOf(id)]||id;
+const chosenText=(q,id)=>!id?'Cavab verilməyib':label(q,id)+') '+(q.options.find(o=>o.id===id)?.text||'');
+const trueText=q=>q.answer?chosenText(q,q.answer):'Mənbədə düzgün cavab göstərilməyib';
+function render(){
+const order=activeOrder(),answers=activeAnswers(),q=current(),total=order.length,done=order.filter(n=>!!answers[n]).length;
+$('jump').max=total;$('jump').placeholder='1–'+total;
+const resultMode=state.finished&&!state.repeat;
+$('card').classList.toggle('mix-hidden',resultMode);
+$('results').classList.toggle('mix-hidden',!resultMode);
+$('stats').replaceChildren();
+function stat(t){const el=document.createElement('span');el.textContent=t;$('stats').append(el)}
+stat((state.repeat?'Səhvlərin təkrarı':'MIX imtahan')+' · '+total+' sual');
+stat('Cavablandırıldı: '+done);stat('Qalan: '+(total-done));
+if(resultMode){renderResults();renderGrid();return}
+if(!q){$('card').textContent='Sual tapılmadı.';return}
+const card=$('card');card.replaceChildren();
+const meta=document.createElement('div');meta.className='question-meta';
+const left=document.createElement('span');left.textContent='Qarışıq sıra: '+(state.position+1)+' / '+total;
+const right=document.createElement('span');right.textContent='Orijinal sual № '+q.number;
+meta.append(left,right);card.append(meta);
+const prog=document.createElement('div');prog.className='mix-progress';const fill=document.createElement('i');fill.style.width=(100*done/Math.max(total,1))+'%';prog.append(fill);card.append(prog);
+const title=document.createElement('h2');title.textContent=q.question;card.append(title);
+for(const [i,id] of state.options[q.number].entries()){
+const option=q.options.find(o=>o.id===id);if(!option)continue;
+const btn=document.createElement('button');btn.type='button';btn.className='option';
+if(answers[q.number]===id)btn.classList.add('selected');
+if(q.answer&&(state.repeatFinished||activeChecked()[q.number])){if(id===q.answer)btn.classList.add('good');else if(id===answers[q.number])btn.classList.add('bad')}
+btn.disabled=!!state.repeatFinished||!!activeChecked()[q.number];
+const letter=document.createElement('b');letter.textContent=letters[i]+')';
+const txt=document.createElement('span');txt.textContent=option.text;btn.append(letter,txt);
+btn.onclick=()=>{if(activeChecked()[q.number])return;answers[q.number]=id;save();render()};card.append(btn);
+}
+const controls=document.createElement('div');controls.className='mix-controls';
+function button(text,fn,cls){const b=document.createElement('button');b.textContent=text;b.className=cls||'';b.onclick=fn;controls.append(b)}
+button('← Əvvəlki',()=>go(state.position-1),'secondary');
+if(q.answer&&!activeChecked()[q.number]&&!state.repeatFinished)button('Bu sualı yoxla',()=>{if(!answers[q.number]){alert('Əvvəlcə cavab variantı seç.');return}activeChecked()[q.number]=true;save();render()});
+button('Növbəti →',()=>go(state.position+1),'secondary');
+if(state.repeat)button(state.repeatFinished?'Təkrarı yenidən başla':'Təkrarı bitir',()=>{if(state.repeatFinished){state.repeatAnswers={};state.repeatChecked={};state.repeatFinished=false;state.position=0}else{state.repeatFinished=true}save();render()},'secondary');
+if(state.repeat)button('Əsas nəticəyə qayıt',()=>{state.repeat=false;state.repeatFinished=false;state.position=0;save();render()},'secondary');
+card.append(controls);
+if(q.answer&&(state.repeatFinished||activeChecked()[q.number])){const note=document.createElement('p');note.className='mix-note';note.textContent=answers[q.number]===q.answer?'✓ Düzgün cavab!':'✗ Səhv cavab. Düzgün variant yaşıl rəngdə göstərilir.';note.style.fontWeight='700';note.style.color=answers[q.number]===q.answer?'#126b32':'#a63131';card.append(note)}
+if(!q.answer){const warning=document.createElement('p');warning.className='mix-note';warning.textContent='Bu sualın düzgün cavabı mənbədə göstərilməyib. Qiymətləndirməyə daxil edilmir.';card.append(warning)}
+renderGrid();
+}
+function renderGrid(){const grid=$('numbers');grid.replaceChildren();activeOrder().forEach((num,i)=>{const b=document.createElement('button');b.textContent=i+1;b.title='Orijinal sual № '+num;b.className=(i===state.position&&!state.finished?'current ':'')+(activeAnswers()[num]?'answered':'');if(state.repeatFinished&&activeAnswers()[num])b.className+=activeAnswers()[num]===numbers.get(num).answer?' correct':' wrong';b.onclick=()=>{if(state.finished&&!state.repeat){const q=numbers.get(num);showReview(q)}else go(i)};grid.append(b)})}
+function go(i){if(i<0||i>=activeOrder().length)return;state.position=i;save();render();$('card').scrollIntoView({block:'start',behavior:'smooth'})}
+function showReview(q){const ans=state.answers[q.number];const results=$('results');results.replaceChildren();const heading=document.createElement('h2');heading.textContent='Sual № '+q.number;results.append(heading);const question=document.createElement('p');question.textContent=q.question;results.append(question);const your=document.createElement('p');your.textContent='Sənin cavabın: '+chosenText(q,ans);results.append(your);const correct=document.createElement('p');correct.textContent='Düzgün cavab: '+trueText(q);correct.style.color='#126b32';results.append(correct);const back=document.createElement('button');back.className='secondary';back.textContent='← Ümumi nəticəyə qayıt';back.onclick=render;results.append(back);results.scrollIntoView({behavior:'smooth',block:'start'})}
+function renderResults(){const r=$('results');r.replaceChildren();const sc=score(state.order,state.answers);const h=document.createElement('h2');h.textContent='İmtahan nəticəsi';r.append(h);
+const summary=document.createElement('p');summary.textContent='Cəmi '+DATA.length+' sual ('+gradedCount+' qiymətləndirilən) · Düzgün: '+sc.correct+' · Səhv: '+sc.wrong+' · Cavabsız: '+sc.blank+' · Nəticə: '+Math.round(sc.correct/gradedCount*100)+'%';r.append(summary);
+const bar=document.createElement('div');bar.className='mix-result-toolbar';
+function button(text,fn,cls){const b=document.createElement('button');b.textContent=text;b.className=cls||'';b.onclick=fn;bar.append(b)}
+const wrong=state.order.filter(num=>numbers.get(num).answer&&state.answers[num]!==numbers.get(num).answer);
+button('Səhvləri yenidən işlə ('+wrong.length+')',()=>{if(!wrong.length){alert('Təkrarlanacaq səhv yoxdur.');return}state.repeat=true;state.wrongOrder=wrong;state.repeatAnswers={};state.repeatChecked={};state.repeatFinished=false;state.position=0;save();render()},'');
+button(state.reviewAll?'Yalnız səhvləri göstər':'Bütün cavabları göstər',()=>{state.reviewAll=!state.reviewAll;save();render()},'secondary');
+button('Yeni MIX başlat',startFresh,'secondary');r.append(bar);
+const note=document.createElement('p');note.className='mix-note';note.textContent='Cavabsız suallar da təkrar siyahısına daxil edilir. Sualı seçərək öz cavabını və düzgün variantı görə bilərsən.';r.append(note);
+const list=document.createElement('div');list.className='mix-result-list';
+for(const num of state.order){const q=numbers.get(num),ans=state.answers[num],ok=!!q.answer&&ans===q.answer;if(!state.reviewAll&&(ok||!q.answer))continue;const b=document.createElement('button');b.className='mix-result-item'+(ok?' correct-item':(!ans?' unanswered':''));const strong=document.createElement('strong');strong.textContent='Sual № '+num+' · '+(!q.answer?'Qiymətləndirilmir':ok?'Düzgün':(!ans?'Cavabsız':'Səhv'));const text=document.createElement('span');text.textContent=q.question;const detail=document.createElement('em');detail.style.display='block';detail.textContent='Düzgün cavab: '+trueText(q);b.append(strong,text,detail);b.onclick=()=>showReview(q);list.append(b)}r.append(list);
+}
+function startFresh(){if(!confirm('Yeni MIX başlasın? Əvvəlki MIX cavabları və nəticəsi silinəcək. Əsas imtahan və /oyren dəyişməyəcək.'))return;state=fresh();save();render()}
+$('go').onclick=()=>{const value=Number($('jump').value);if(Number.isInteger(value))go(value-1)};
+$('jump').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+$('finish').onclick=()=>{if(state.repeat){state.repeatFinished=true;save();render();return}if(state.finished){render();$('results').scrollIntoView({behavior:'smooth'});return}const remaining=state.order.length-Object.keys(state.answers).filter(k=>state.order.includes(Number(k))).length;if(remaining&&!confirm(remaining+' sual cavabsızdır. İmtahanı bitirmək istəyirsən?'))return;state.finished=true;save();render();$('results').scrollIntoView({behavior:'smooth'})};
+$('newExam').onclick=startFresh;
+save();render();
+})();
+</script>
+</body></html>
