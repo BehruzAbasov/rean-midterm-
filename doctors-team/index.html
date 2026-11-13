@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="az"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REANİMATOLOGİYA A.İ.T — Doctors Team</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#1c304a;background:#f2f6fc;--blue:#2665ad;--green:#177c46;--red:#c03649;--line:#d8e4f0}*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}header{background:linear-gradient(115deg,#172d54,#326398);color:#fff;padding:16px max(15px,calc((100vw - 1100px)/2))}.header-row{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:13px;color:white;text-decoration:none}.logo{width:117px;height:58px;object-fit:contain;background:white;border-radius:12px;padding:9px}.brand small{display:block;font-size:12px;letter-spacing:1px;color:#d0e4ff;font-weight:800}.brand strong{font-size:19px}header nav a{color:white;text-decoration:none;border:1px solid #9eb5d5;border-radius:10px;padding:9px 12px;font-weight:650}.wrap{max-width:1100px;margin:22px auto;padding:0 15px}.intro,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:15px;box-shadow:0 5px 18px #122b4b09}.intro{background:linear-gradient(120deg,#e4f2ff,#fff)}h1{margin:0;font-size:27px}.intro p{color:#5a7189;line-height:1.55;margin:8px 0 15px}.toolbar,.actions,.stats,.jump{display:flex;align-items:center;flex-wrap:wrap;gap:9px}.btn{border:1px solid #c9d9eb;background:#fff;color:#24517c;padding:10px 14px;border-radius:10px;font-weight:700}.btn.active,.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.btn.danger{color:#a02c3b;border-color:#e6b8c0}.btn:disabled{opacity:.48;cursor:default}.toggle{display:flex;gap:7px;align-items:center;color:#314b66;font-weight:650}.toggle input{width:18px;height:18px;accent-color:var(--blue)}.stats{margin:0 0 15px}.stats span{background:#e7eef8;border-radius:9px;padding:8px 12px;font-weight:650}.layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;align-items:start;gap:15px}.meta{color:#617b94;font-size:13px;font-weight:700}.question{font-size:21px;line-height:1.5;white-space:pre-wrap;margin:14px 0 20px}.options{display:grid;gap:10px}.option{width:100%;text-align:left;display:flex;gap:12px;align-items:flex-start;color:#263e59;background:#fff;border:1.5px solid var(--line);border-radius:11px;padding:13px;line-height:1.45}.option:hover:not(:disabled){background:#f1f7ff}.option.selected{border-color:#2b80c6;background:#e9f3ff}.option.good{border-color:#4fa974;background:#dff7e7;color:#145d31}.option.bad{border-color:#d76a78;background:#ffe5e8;color:#932b39}.option:disabled{opacity:1;cursor:default}.option .letter{font-weight:800;min-width:26px}.feedback{border-radius:9px;padding:12px 14px;margin-top:13px;font-weight:750}.feedback.good{background:#dff7e7;color:#12602e}.feedback.bad{background:#ffe5e8;color:#972b3b}.actions{margin-top:20px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:7px;margin:14px 0;max-height:460px;overflow:auto}.grid button{background:#f6f9fd;color:#244665;border:1px solid #d5e0ec;border-radius:8px;padding:8px 0}.grid button.correct{background:#188847;border-color:#188847;color:white}.grid button.wrong{background:#c73244;border-color:#c73244;color:white}.grid button.current{outline:3px solid #2b6fb8;outline-offset:1px}.jump input{width:115px;min-width:0;border:1px solid #c5d6e8;border-radius:9px;padding:9px}.muted{color:#64748b}.hidden{display:none!important}.result-row{display:block;width:100%;margin:7px 0;padding:11px 13px;text-align:left;background:#f7f9fc;border:1px solid #d9e4f0;border-radius:9px;color:#243f59}.result-row:hover{background:#eaf3ff}.hint{background:#fff5e0;color:#75581e;border-radius:9px;padding:11px;margin-top:14px;font-size:13px}@media(max-width:760px){.layout{grid-template-columns:1fr}.grid{max-height:170px}.wrap{padding:0 10px;margin:12px auto}.panel,.intro{padding:15px}.question{font-size:19px}.logo{width:93px;height:49px}.brand strong{font-size:16px}.actions .btn{flex:1}}
+</style></head><body>
+<header><div class="header-row"><a class="brand" href="../"><img class="logo" src="../src/dr-who-logo.svg" alt="Dr.Who"><span><small>REANİMATOLOGİYA A.İ.T</small><strong>Midterm İmtahan Platforması</strong></span></a><nav><a href="../">← Ana səhifə</a></nav></div></header>
+<main class="wrap"><section class="intro"><h1>Doctors Team · 2024</h1><p>PDF-dəki 100 sual. Cavab seçən kimi yoxlanır; yaşıl nömrə düzgün, qırmızı nömrə səhv cavabı göstərir. Oxu rejimində düzgün variantlar açıq görünür.</p><div class="toolbar"><button id="examTab" class="btn active">✍️ İşlə</button><button id="studyTab" class="btn">📖 Oxu</button><label class="toggle"><input type="checkbox" id="shuffle" checked>Variantları qarışdır (ON/OFF)</label><button id="finish" class="btn">İmtahanı bitir</button></div></section>
+<div class="stats" id="stats" aria-live="polite"></div><div class="layout"><section class="panel"><div id="questionView"><div class="meta" id="counter"></div><h2 class="question" id="question"></h2><div id="options" class="options"></div><div id="feedback" aria-live="polite"></div><div class="actions"><button id="previous" class="btn">← Əvvəlki</button><button id="next" class="btn primary">Növbəti →</button><button id="returnMain" class="btn hidden">Əsas imtahana qayıt</button></div></div><div id="results" class="hidden"></div></section><aside class="panel"><strong>Suallara keçid</strong><div class="jump" style="margin-top:12px"><input id="jump" type="number" min="1" max="100" placeholder="№ 1–100"><button id="go" class="btn">Keç</button></div><p class="muted" style="font-size:13px">Yaşıl — düzgün · Qırmızı — səhv · Açıq — cavabsız</p><div id="numbers" class="grid"></div><button id="newExam" class="btn danger" style="width:100%">Yeni imtahan</button><p class="hint">Mənbədə suallar 1–50 və 101–150 kimi nömrələnib. Burada işləmə sırası 1–100-dür.</p></aside></div></main>
+<script src="./data.js"></script><script>
+(()=>{
+'use strict';
+const DATA=window.DOCTORS_QUESTIONS, KEY='rean-midterm-doctors-team-v1', $=id=>document.getElementById(id);
+const byNumber=new Map(DATA.map(q=>[q.number,q]));
+const shuffled=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
+const fresh=()=>({shuffle:true,orders:{},answers:{},checked:{},index:0,mode:'exam',finished:false,repeat:false,repeatOrder:[],repeatAnswers:{},repeatChecked:{}});
+let state;try{state=JSON.parse(localStorage.getItem(KEY))}catch{}
+if(!state||typeof state!=='object'||!state.answers||!state.checked)state=fresh();
+state.orders??={};state.repeatOrder??=[];state.repeatAnswers??={};state.repeatChecked??={};
+state.mode=state.mode==='study'?'study':'exam';
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}};
+const order=()=>state.repeat?state.repeatOrder:DATA.map(q=>q.number);
+const answers=()=>state.repeat?state.repeatAnswers:state.answers;
+const checked=()=>state.repeat?state.repeatChecked:state.checked;
+const question=()=>byNumber.get(order()[state.index]);
+const isCorrect=(q,a)=>a[q.number]===q.answer;
+function optionOrder(q){
+ const ids=q.options.map(o=>o.id);
+ if(!state.shuffle)return ids;
+ const saved=state.orders[q.number];
+ if(Array.isArray(saved)&&saved.length===ids.length&&new Set(saved).size===ids.length&&saved.every(id=>ids.includes(id)))return saved;
+ const next=shuffled(ids);state.orders[q.number]=next;save();return next;
+}
+function element(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function renderStats(){const a=answers(),c=checked(),ns=order();let ok=0,bad=0,done=0;for(const n of ns){if(c[n]){done++;if(isCorrect(byNumber.get(n),a))ok++;else bad++}}const stats=$('stats');stats.replaceChildren();for(const value of [(state.repeat?'Təkrar':'İmtahan')+' · '+ns.length+' sual','Yoxlanılıb: '+done,'Düzgün: '+ok,'Səhv: '+bad])stats.append(element('span','',value))}
+function renderNumbers(){const grid=$('numbers');grid.replaceChildren();order().forEach((num,i)=>{const b=element('button',(i===state.index&&!state.finished?'current ':'')+(checked()[num]?(isCorrect(byNumber.get(num),answers())?'correct':'wrong'):''),i+1);b.title='Orijinal sual № '+num;b.onclick=()=>{state.finished=false;go(i)};grid.append(b)})}
+function render(){
+ const ns=order();if(!ns.length){state.repeat=false;state.index=0}
+ state.index=Math.max(0,Math.min(order().length-1,state.index||0));
+ const q=question();if(!q)return;
+ const a=answers(),c=checked(),review=state.mode==='study'||!!c[q.number];
+ $('examTab').classList.toggle('active',state.mode==='exam');$('studyTab').classList.toggle('active',state.mode==='study');$('shuffle').checked=state.shuffle;
+ $('questionView').classList.toggle('hidden',state.finished);$('results').classList.toggle('hidden',!state.finished);
+ renderStats();renderNumbers();if(state.finished){renderResults();return}
+ $('counter').textContent='Sual '+(state.index+1)+' / '+order().length+' · Orijinal sual № '+q.number+(state.repeat?' · Səhvlərin təkrarı':'');
+ $('question').textContent=q.question;$('options').replaceChildren();
+ for(const id of optionOrder(q)){
+  const opt=q.options.find(o=>o.id===id),b=element('button','option');
+  if(a[q.number]===id)b.classList.add('selected');
+  if(review){if(id===q.answer)b.classList.add('good');else if(a[q.number]===id)b.classList.add('bad')}
+  b.disabled=state.mode==='study'||!!c[q.number];
+  b.append(element('span','letter',String.fromCharCode(65+optionOrder(q).indexOf(id))+')'),element('span','',opt.text));
+  b.onclick=()=>{if(c[q.number]||state.mode==='study')return;a[q.number]=id;c[q.number]=true;save();render()};
+  $('options').append(b);
+ }
+ $('feedback').replaceChildren();if(review){const ok=isCorrect(q,a);const feedback=element('div','feedback '+(state.mode==='study'||ok?'good':'bad'),state.mode==='study'?'Düzgün cavab yaşıl rəngdə göstərilir.':ok?'✓ Düzgün cavab!':'✗ Səhv cavab. Düzgün variant yaşıl göstərilir.');$('feedback').append(feedback)}
+ $('previous').disabled=state.index===0;$('next').disabled=state.index===order().length-1;$('returnMain').classList.toggle('hidden',!state.repeat);
+}
+function go(i){if(i<0||i>=order().length)return;state.index=i;save();render();window.scrollTo({top:0,behavior:'smooth'})}
+function renderResults(){
+ const area=$('results');area.replaceChildren();const ns=order(),a=answers();let ok=0,wrong=0,blank=0;
+ for(const n of ns){if(!a[n])blank++;else if(isCorrect(byNumber.get(n),a))ok++;else wrong++}
+ area.append(element('h2','','İmtahan nəticələri'));
+ area.append(element('p','muted','Düzgün: '+ok+' · Səhv: '+wrong+' · Cavabsız: '+blank+' · Nəticə: '+Math.round(ok/ns.length*100)+'%'));
+ const toolbar=element('div','actions'),back=element('button','btn','← Suallara qayıt'),retry=element('button','btn primary','Səhvləri yenidən işlə ('+(wrong+blank)+')');
+ back.onclick=()=>{state.finished=false;save();render()};retry.onclick=retryMistakes;toolbar.append(back,retry);area.append(toolbar);
+ for(const [i,num] of ns.entries()){
+  const q=byNumber.get(num),ans=a[num];if(ans===q.answer)continue;
+  const b=element('button','result-row',(i+1)+'. '+q.question+' · '+(!ans?'Cavabsız':'Səhv'));
+  b.onclick=()=>{state.finished=false;go(i)};area.append(b);
+ }
+}
+function retryMistakes(){
+ const wrong=order().filter(n=>answers()[n]!==byNumber.get(n).answer);
+ if(!wrong.length){alert('Təkrarlanacaq səhv və ya cavabsız sual yoxdur.');return}
+ state.repeatOrder=wrong;state.repeatAnswers={};state.repeatChecked={};state.repeat=true;state.index=0;state.finished=false;state.mode='exam';save();render();
+}
+$('examTab').onclick=()=>{state.mode='exam';state.finished=false;save();render()};
+$('studyTab').onclick=()=>{state.mode='study';state.finished=false;save();render()};
+$('shuffle').onchange=e=>{state.shuffle=e.target.checked;save();render()};
+$('previous').onclick=()=>go(state.index-1);$('next').onclick=()=>go(state.index+1);
+$('finish').onclick=()=>{state.finished=true;save();render()};
+$('returnMain').onclick=()=>{state.repeat=false;state.index=0;state.finished=false;save();render()};
+$('go').onclick=()=>{const n=Number($('jump').value);if(Number.isInteger(n))go(n-1)};
+$('jump').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+$('newExam').onclick=()=>{if(!confirm('Doctors Team nəticələri və seçimləri sıfırlansın?'))return;state=fresh();save();render()};
+save();render();
+})();
+</script></body></html>
