@@ -112,7 +112,7 @@ if(q.answer&&(state.repeatFinished||activeChecked()[q.number])){if(id===q.answer
 btn.disabled=!!state.repeatFinished||!!activeChecked()[q.number];
 const letter=document.createElement('b');letter.textContent=letters[i]+')';
 const txt=document.createElement('span');txt.textContent=option.text;btn.append(letter,txt);
-btn.onclick=()=>{if(activeChecked()[q.number])return;answers[q.number]=id;save();render()};card.append(btn);
+btn.onclick=()=>{if(activeChecked()[q.number])return;answers[q.number]=id;if(q.answer)activeChecked()[q.number]=true;save();render()};card.append(btn);
 }
 const controls=document.createElement('div');controls.className='mix-controls';
 function button(text,fn,cls){const b=document.createElement('button');b.textContent=text;b.className=cls||'';b.onclick=fn;controls.append(b)}
@@ -126,7 +126,7 @@ if(q.answer&&(state.repeatFinished||activeChecked()[q.number])){const note=docum
 if(!q.answer){const warning=document.createElement('p');warning.className='mix-note';warning.textContent='Bu sualın düzgün cavabı mənbədə göstərilməyib. Qiymətləndirməyə daxil edilmir.';card.append(warning)}
 renderGrid();
 }
-function renderGrid(){const grid=$('numbers');grid.replaceChildren();activeOrder().forEach((num,i)=>{const b=document.createElement('button');b.textContent=i+1;b.title='Orijinal sual № '+num;b.className=(i===state.position&&!state.finished?'current ':'')+(activeAnswers()[num]?'answered':'');if(state.repeatFinished&&activeAnswers()[num])b.className+=activeAnswers()[num]===numbers.get(num).answer?' correct':' wrong';b.onclick=()=>{if(state.finished&&!state.repeat){const q=numbers.get(num);showReview(q)}else go(i)};grid.append(b)})}
+function renderGrid(){const grid=$('numbers');grid.replaceChildren();activeOrder().forEach((num,i)=>{const b=document.createElement('button');b.textContent=i+1;b.title='Orijinal sual № '+num;const answer=activeAnswers()[num],correctAnswer=numbers.get(num).answer;b.className=(i===state.position&&!state.finished?'current ':'')+(answer?(correctAnswer?(answer===correctAnswer?'correct':'wrong'):'answered'):'');b.onclick=()=>{if(state.finished&&!state.repeat){const q=numbers.get(num);showReview(q)}else go(i)};grid.append(b)})}
 function go(i){if(i<0||i>=activeOrder().length)return;state.position=i;save();render();$('card').scrollIntoView({block:'start',behavior:'smooth'})}
 function showReview(q){const ans=state.answers[q.number];const results=$('results');results.replaceChildren();const heading=document.createElement('h2');heading.textContent='Sual № '+q.number;results.append(heading);const question=document.createElement('p');question.textContent=q.question;results.append(question);const your=document.createElement('p');your.textContent='Sənin cavabın: '+chosenText(q,ans);results.append(your);const correct=document.createElement('p');correct.textContent='Düzgün cavab: '+trueText(q);correct.style.color='#126b32';results.append(correct);const back=document.createElement('button');back.className='secondary';back.textContent='← Ümumi nəticəyə qayıt';back.onclick=render;results.append(back);results.scrollIntoView({behavior:'smooth',block:'start'})}
 function renderResults(){const r=$('results');r.replaceChildren();const sc=score(state.order,state.answers);const h=document.createElement('h2');h.textContent='İmtahan nəticəsi';r.append(h);
